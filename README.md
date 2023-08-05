@@ -1,0 +1,2 @@
+# Stata
+Diverse Stata files
