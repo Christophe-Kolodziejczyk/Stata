@@ -1,0 +1,112 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}E:\ProjektDB\KORA\Workdata\704752\stcrmixPack\trust\rosenbrock.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 2 Aug 2017, 10:08:52
+{txt}r; t=0.04 10:08:52
+
+{com}. 
+. clear mata
+{txt}r; t=0.00 10:08:52
+
+{com}. mata:
+{txt}{hline 49} mata (type {cmd:end} to exit) {hline}
+{com}: 
+: void rosen(todo,p,f,g,H)
+> {c -(}
+> 
+>                 real scalar x1, x2
+>                 real scalar g1, g2
+>                 
+>                 x1 = p[1]
+>                 x2 = p[2]
+>                 H = J(2,2,.)
+>                 
+>                 f  = 100*(x2-x1^2)^2 + (1-x1)^2
+>                 if (todo>=1) 
+>                 {c -(}
+>                                 g1 =-400*(x2-x1^2)*x1-2*(1-x1)
+>                                 g2 = 200*(x2-x1^2) 
+>                 
+>                                 g = g1,g2
+>                 {c )-}
+>                 
+>                 if (todo>=2)
+>                 {c -(}
+>                                 H[1,1] = -400*(x2-3*x1^2)+2
+>                                 H[2,2] = 200
+>                                 H[2,1] = -400*x1
+>                                 _makesymmetric(H)
+>                 {c )-}
+>                 
+> //              H = . // ..
+> 
+> {c )-}
+
+: 
+: S = optimize_init()
+{res}
+{com}: optimize_init_which(S,"min")
+{res}
+{com}: optimize_init_evaluator(S,&rosen())
+{res}
+{com}: optimize_init_evaluatortype(S,"d2")
+{res}
+{com}: optimize_init_technique(S,"bfgs")
+{res}
+{com}: optimize_init_params(S,(1,-1))
+{res}
+{com}: optimize_init_trace_gradient(S,"on")
+{res}
+{com}: optimize_init_trace_Hessian(S,"on")
+{res}
+{com}: optimize_init_tracelevel(S,"value")
+{res}
+{com}: optimize_init_conv_maxiter(S,100)
+{res}
+{com}: p = optimize(S)
+{res}{txt}Iteration 0:{space 3}f(p) = {res:       400}  
+Iteration 1:{space 3}f(p) = {res: 31.080627}  (backed up)
+Iteration 2:{space 3}f(p) = {res: 4.4431216}  (backed up)
+Iteration 3:{space 3}f(p) = {res: 2.0151431}  
+Iteration 4:{space 3}f(p) = {res: 1.9931315}  
+Iteration 5:{space 3}f(p) = {res: 1.4946337}  
+Iteration 6:{space 3}f(p) = {res: 1.4882102}  
+Iteration 7:{space 3}f(p) = {res: 1.3288705}  
+Iteration 8:{space 3}f(p) = {res: .90384647}  
+Iteration 9:{space 3}f(p) = {res: .78088977}  
+Iteration 10:{space 2}f(p) = {res: .26597046}  
+Iteration 11:{space 2}f(p) = {res: .25235251}  
+Iteration 12:{space 2}f(p) = {res: .07279298}  
+Iteration 13:{space 2}f(p) = {res: .06812138}  
+Iteration 14:{space 2}f(p) = {res: .04379184}  
+Iteration 15:{space 2}f(p) = {res:  .0214864}  
+Iteration 16:{space 2}f(p) = {res: .01026655}  
+Iteration 17:{space 2}f(p) = {res: .00240049}  
+Iteration 18:{space 2}f(p) = {res: .00043482}  
+Iteration 19:{space 2}f(p) = {res: .00005398}  
+Iteration 20:{space 2}f(p) = {res: 2.014e-06}  
+Iteration 21:{space 2}f(p) = {res: 1.093e-08}  
+Iteration 22:{space 2}f(p) = {res: 3.048e-11}  
+
+{com}: 
+: p
+{res}       {txt}          1             2
+    {c TLC}{hline 29}{c TRC}
+  1 {c |}  {res}.9999945574   .9999890222{txt}  {c |}
+    {c BLC}{hline 29}{c BRC}
+
+{com}: 
+: end
+{txt}{hline}
+r; t=0.40 10:08:52
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}E:\ProjektDB\KORA\Workdata\704752\stcrmixPack\trust\rosenbrock.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 2 Aug 2017, 10:08:52
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
